@@ -30,7 +30,7 @@ export default function Homepage() {
         } else
             dispatch(chat_to({ chat_to: Search })).then((res) => {
                 if (res && res.data.searchresults !== undefined)
-                    setData(res.data.searchresults);
+                setData(res.data.searchresults);
             });
     };
 
@@ -95,8 +95,8 @@ export default function Homepage() {
                                             <A
                                                 href={`chat/${value.id}`}
                                                 key={id + 1}>
-                                                <div className="lg:w-1/3 w-3/4 flex m-0 m-auto p-4 font-semibold  px-2 my-2 shadow-lg  bg-green-700 rounded">
-                                                    <div className="w-1/2">
+                                                <div className="lg:w-1/3 w-3/4 flex m-0 m-auto p-2 lg:p-3 md:p-3 font-semibold  px-2 my-2 shadow-lg  bg-green-700 rounded">
+                                                    <div className="w-1/3">
                                                         <img
                                                             className="h-16  w-16 rounded-full "
                                                             alt="Profilepic"
@@ -104,7 +104,7 @@ export default function Homepage() {
                                                                 value.photo
                                                             }></img>
                                                     </div>
-                                                    <div className="w-1/2 text-lg lg:text-2xl text-white font-semibold">
+                                                    <div className="w-2/3 text-lg lg:text-2xl text-white font-semibold">
                                                         {value.name}
                                                     </div>
                                                 </div>

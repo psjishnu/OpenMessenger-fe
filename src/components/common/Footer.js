@@ -6,9 +6,9 @@ export default function Footer({ signUp }) {
             <section className="bg-gray-200 py-3 w-full">
                 <div className="container mx-auto px-8">
                     <a
-                        href="http://mgmits.ac.in/departments/computer-science-and-engineering/"
+                        href="http://github.com/psjishnu"
                         className="block text-black text-center  font-bold text-sm sm:mb-2 hover:text-indigo-400 ">
-                        Powered by MITS CSE
+                        Made by psjishnu
                     </a>
                 </div>
             </section>

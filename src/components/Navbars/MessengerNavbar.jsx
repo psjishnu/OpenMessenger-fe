@@ -36,7 +36,7 @@ export default function MessengerNavbar() {
                         Logged in as {UserName}
                     </p>
                     <button
-                        className=" items-center text-sm justify-center p-2 px-2 text-black bg-white rounded  hover:text-white hover:bg-black mt-1  cursor-pointer"
+                        className="text-xs items-center lg:text-sm justify-center p-2 px-2 text-black bg-white rounded  hover:text-white hover:bg-black mt-1  cursor-pointer"
                         onClick={logout}>
                         Logout
                     </button>
