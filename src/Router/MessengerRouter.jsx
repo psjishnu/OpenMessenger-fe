@@ -5,7 +5,7 @@ import Homepage from "../components/Messenger/Homepage";
 import ChatPage from "../components/Messenger/ChatPage";
 
 const routes = {
-    "/ashaworker": () => <Homepage />,
+    "/chat": () => <Homepage />,
     "/chat/:id": ({ id }) => <ChatPage userId={id} />,
 };
 // const links = [
@@ -16,7 +16,7 @@ const routes = {
 //     },
 // ];
 const AshaworkerRouter = () => {
-    useRedirect("/", "/ashaworker");
+    useRedirect("/", "/chat");
     const pages = useRoutes(routes);
 
     return (

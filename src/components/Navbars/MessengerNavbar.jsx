@@ -1,6 +1,6 @@
 import React from "react";
 import { A, navigate } from "hookrouter";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const pic = require("./simplechat.png");
 export default function MessengerNavbar() {
