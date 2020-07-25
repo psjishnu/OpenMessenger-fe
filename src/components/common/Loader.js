@@ -12,10 +12,10 @@ export const Loading = ({ msg }) => {
     );
 };
 
-export const FullLoading = ({ msg, color = "green-100" }) => {
+export const FullLoading = ({ msg }) => {
     return (
         <div
-            className={`mt-20 items-center flex flex-col justify-center overflow-hidden bg-${color}`}>
+            className={`mt-20 items-center flex flex-col justify-center overflow-hidden`}>
             <Loading msg={msg} />
         </div>
     );

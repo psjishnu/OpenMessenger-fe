@@ -30,7 +30,7 @@ export default function Homepage() {
         } else
             dispatch(chat_to({ chat_to: Search })).then((res) => {
                 if (res && res.data.searchresults !== undefined)
-                setData(res.data.searchresults);
+                    setData(res.data.searchresults);
             });
     };
 
@@ -81,7 +81,7 @@ export default function Homepage() {
                         </div>
                         <div></div>
                         <div>
-                            {Data.length > 0 && (
+                            {Data.length > 0 ? (
                                 <div className="m-0 m-auto mt-6 items-center text-center">
                                     {keyword.length > 0 && (
                                         <div className="font-bold capital">
@@ -112,6 +112,14 @@ export default function Homepage() {
                                         );
                                     })}
                                 </div>
+                            ) : (
+                                <>
+                                    {keyword.length > 0 && (
+                                        <div className="w-full text-lg font-sans font-semibold text-center mt-3 text-red-600">
+                                            No Results for {keyword} :-(
+                                        </div>
+                                    )}
+                                </>
                             )}
                         </div>
                     </div>
