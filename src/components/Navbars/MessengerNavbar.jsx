@@ -24,7 +24,7 @@ export default function MessengerNavbar() {
                                 src={pic}
                                 className="h-10 w-10"></img>
                             <span className="font-semibold text-sm md:text-sm lg:text-xl ml-1 tracking-tight">
-                                Simple Messenger
+                                Open Messenger
                             </span>
                         </div>
                     </A>
