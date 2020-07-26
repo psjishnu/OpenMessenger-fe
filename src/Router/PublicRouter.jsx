@@ -20,8 +20,8 @@ const PublicRouter = () => {
                         Error 404: Page not found
                     </div>
                 )}
+                <Footer />
             </div>
-            <Footer />
         </>
     );
 };

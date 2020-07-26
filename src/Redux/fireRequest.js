@@ -138,7 +138,7 @@ export const APIRequest = (
                         localStorage.removeItem("login_access_token");
                     }
                     Notficiation.Error({
-                        msg: "Token invalid, please login again",
+                        msg: "Please login again",
                     });
                     return error;
                 }
@@ -171,7 +171,7 @@ export const APIRequest = (
                         let err = {
                             msg: "Something went Wrong...!",
                         };
-                        Notficiation.Error(err);
+                        //Notficiation.Error(err);
                         return err;
                     }
                 }
@@ -181,9 +181,9 @@ export const APIRequest = (
                     error.response.status >= 500 &&
                     error.response.status <= 599
                 ) {
-                    Notficiation.Error({
-                        msg: "Something went Wrong...!",
-                    });
+                    //     Notficiation.Error({
+                    //       msg: "Something went Wrong...!",
+                    // });
                     return error;
                 }
             }
