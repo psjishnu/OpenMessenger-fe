@@ -1,4 +1,9 @@
+[build]
+  command = "npm run build"
+  publish="openmessenger/build"
+  base = "openmessenger"
+
 [[redirects]]
-  from = "/*"
+  from = "/"
   to = "/index.html"
   status = 200
