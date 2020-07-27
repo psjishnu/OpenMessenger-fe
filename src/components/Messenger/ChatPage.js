@@ -25,9 +25,14 @@ const ChatPage = ({ userId }) => {
         dispatch(getmsgs({ receiver: userId }))
             .then((res) => {
                 if (res && res.data !== undefined) {
-                    setreceived(res.data.Messages);
-                    setRece(res.data.receiver);
-                    if (res.data.receiver.email === User.data.email) {
+                    if (res.data.receiver !== undefined) {
+                        setreceived(res.data.Messages);
+                        setRece(res.data.receiver);
+                        if (res.data.receiver.email === User.data.email) {
+                            seError(true);
+                            Err = true;
+                        }
+                    } else {
                         seError(true);
                         Err = true;
                     }

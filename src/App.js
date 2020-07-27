@@ -6,6 +6,8 @@ import { getCurrentUser } from "./Redux/actions";
 import PublicRouter from "./Router/PublicRouter";
 import MessengerRouter from "./Router/MessengerRouter";
 import { useAbortableEffect } from "./util/useAbortableEffect";
+import "./Notify.css";
+
 function App() {
     const dispatch = useDispatch();
     const state = useSelector((reduxState) => reduxState);

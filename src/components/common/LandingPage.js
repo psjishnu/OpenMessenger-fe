@@ -39,12 +39,12 @@ export default function LandingPage() {
     };
     const fresponseGoogle = (response) => {
         Notficiation.Error({
-            msg: "Something went wrong",
+            msg: "Login Failed",
         });
     };
 
     return (
-        <div className="flex flex-col items-center mt-40 mb-40">
+        <div className="flex flex-col items-center my-40 py-8 lg:mt-20 lg:py-10 lg:py-40 mb-40">
             <GoogleLogin
                 clientId="851553848714-023jl52skl877gsrkabla89chm0sscgu.apps.googleusercontent.com"
                 buttonText="Sign In "
