@@ -3,6 +3,8 @@ import "./chatpage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { question, getmsgs } from "../../Redux/actions";
 import Loader from "../common/Loader";
+import socketIOClient from "socket.io-client";
+const config = { baseUrl: process.env.REACT_APP_BASE_URL };
 
 const ChatPage = ({ userId }) => {
     const state = useSelector((reduxState) => reduxState);
@@ -12,40 +14,60 @@ const ChatPage = ({ userId }) => {
     const dispatch = useDispatch();
     const [Rece, setRece] = useState();
     const [received, setreceived] = useState();
-    const [render, Setrender] = useState("FIRST");
     const [Error, seError] = useState(false);
     const [Loading, setLoading] = useState(false);
 
+    const Socket = socketIOClient(config.baseUrl);
+
     useEffect(() => {
-        if (render === "FIRST") {
-            setLoading(true);
-        }
+        let Mount = true;
         window.scrollTo(0, 0);
+        setLoading(true);
         let Err = false;
-        dispatch(getmsgs({ receiver: userId }))
-            .then((res) => {
-                if (res && res.data !== undefined) {
-                    if (res.data.receiver !== undefined) {
-                        setreceived(res.data.Messages);
-                        setRece(res.data.receiver);
-                        if (res.data.receiver.email === User.data.email) {
+        let Res = [];
+        const starter = () => {
+            dispatch(getmsgs({ receiver: userId }))
+                .then((res) => {
+                    if (Mount && res && res.data !== undefined) {
+                        if (res.data.receiver !== undefined) {
+                            setreceived(res.data.Messages);
+                            Res = res.data.receiver;
+                            setRece(res.data.receiver);
+                            if (res.data.receiver.email === User.data.email) {
+                                seError(true);
+                                Err = true;
+                            }
+                        } else {
                             seError(true);
                             Err = true;
                         }
-                    } else {
-                        seError(true);
-                        Err = true;
+                        setLoading(false);
                     }
-                    setLoading(false);
-                }
-            })
-            .then(() => {
-                if (!Err) {
-                    const msgbox = document.getElementById("message-box");
-                    msgbox.scrollTop = msgbox.scrollHeight;
-                }
-            });
-    }, [render, dispatch, userId, User.data.email]);
+                })
+                .then(() => {
+                    if (Mount && !Err) {
+                        const msgbox = document.getElementById("message-box");
+                        msgbox.scrollTop = msgbox.scrollHeight;
+                    }
+                });
+        };
+        starter();
+
+        Socket.on("msgToClient", (message) => {
+            if (
+                (message.UserMail === User.data.email &&
+                    message.SenderId === Res.email) ||
+                (message.UserMail === Res.email &&
+                    message.SenderId === User.data.email)
+            ) {
+                starter();
+                console.log(User.data.email, Res.email);
+            }
+        });
+        return () => {
+            Mount = false;
+        };
+    }, [dispatch, userId, User.data.email]);
 
     const isNullOrWhiteSpace = (str) => {
         return !str || str.length === 0 || /^\s*$/.test(str);
@@ -55,11 +77,15 @@ const ChatPage = ({ userId }) => {
         if (!isNullOrWhiteSpace(Input)) {
             setInput("");
             dispatch(question({ msg: Input, receiver: userId })).then((res) => {
-                Setrender(Math.random());
                 if (!Error) {
                     const msgbox = document.getElementById("message-box");
                     msgbox.scrollTop = msgbox.scrollHeight;
                 }
+                Socket.emit("msgToServer", {
+                    UserMail: User.data.email,
+                    SenderId: Rece.email,
+                    data: Input,
+                });
             });
         }
     };
@@ -82,15 +108,6 @@ const ChatPage = ({ userId }) => {
                                         </p>
                                     )}
                                 </span>
-                                <div className="text-right w-1/2">
-                                    <button
-                                        onClick={() => {
-                                            Setrender(Math.random());
-                                        }}
-                                        className="bg-white hover:bg-black text-black hover:text-white shadow-md rounded-lg px-2 py-1">
-                                        Refresh
-                                    </button>
-                                </div>
                             </div>
                             <div className="chat-area" id="message-box">
                                 {received &&
