@@ -9,23 +9,19 @@ export default {
         method: "GET",
         noAuth: false,
     },
-    question: {
-        path: "/messages/new",
+    NewMessage: {
+        path: "/api/v1/messages/new",
         method: "POST",
     },
     allchats: {
-        path: "/messages/allchats",
-        method: "get",
-    },
-    worked: {
-        path: "/messages",
+        path: "/api/v1/messages/allchats",
         method: "get",
     },
     getmsgs: {
-        path: "/messages/all",
+        path: "/api/v1/messages/all",
         method: "post",
     },
-    chat_to: {
+    SearchUser: {
         path: "/api/v1/account/search",
         method: "post",
     },

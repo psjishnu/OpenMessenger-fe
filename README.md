@@ -1,4 +1,4 @@
-# Open Messenger  
+# Open Messenger
 
 ![logo](https://github.com/openmessenger/OpenMessenger-fe/blob/master/public/logo.png)
 

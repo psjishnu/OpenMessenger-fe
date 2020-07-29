@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./chatpage.css";
 import { useDispatch, useSelector } from "react-redux";
-import { question, getmsgs } from "../../Redux/actions";
+import { NewMessage, getmsgs } from "../../Redux/actions";
 import Loader from "../common/Loader";
 import socketIOClient from "socket.io-client";
 const config = { baseUrl: process.env.REACT_APP_BASE_URL };
@@ -61,7 +61,6 @@ const ChatPage = ({ userId }) => {
                     message.SenderId === User.data.email)
             ) {
                 starter();
-                console.log(User.data.email, Res.email);
             }
         });
         return () => {
@@ -76,17 +75,19 @@ const ChatPage = ({ userId }) => {
     const sendMsg = () => {
         if (!isNullOrWhiteSpace(Input)) {
             setInput("");
-            dispatch(question({ msg: Input, receiver: userId })).then((res) => {
-                if (!Error) {
-                    const msgbox = document.getElementById("message-box");
-                    msgbox.scrollTop = msgbox.scrollHeight;
+            dispatch(NewMessage({ msg: Input, receiver: userId })).then(
+                (res) => {
+                    if (!Error) {
+                        const msgbox = document.getElementById("message-box");
+                        msgbox.scrollTop = msgbox.scrollHeight;
+                    }
+                    Socket.emit("msgToServer", {
+                        UserMail: User.data.email,
+                        SenderId: Rece.email,
+                        data: Input,
+                    });
                 }
-                Socket.emit("msgToServer", {
-                    UserMail: User.data.email,
-                    SenderId: Rece.email,
-                    data: Input,
-                });
-            });
+            );
         }
     };
 

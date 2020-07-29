@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { A } from "hookrouter";
-import { chat_to, allchats } from "../../Redux/actions";
+import { SearchUser, allchats } from "../../Redux/actions";
 import { useDispatch } from "react-redux";
 import Loader from "../common/Loader";
 
@@ -23,12 +23,18 @@ export default function Homepage() {
         });
     }, [render, dispatch]);
 
+    const isNullOrWhiteSpace = (str) => {
+        return !str || str.length === 0 || /^\s*$/.test(str);
+    };
+
     const Searcher = () => {
         setkeyword(Search);
-        if (Search === "") {
+        if (isNullOrWhiteSpace(Search) === true) {
+            setSearch("");
+            setkeyword("");
             setrender(Math.random());
         } else
-            dispatch(chat_to({ chat_to: Search })).then((res) => {
+            dispatch(SearchUser({ chat_to: Search })).then((res) => {
                 if (res && res.data.searchresults !== undefined)
                     setData(res.data.searchresults);
             });
